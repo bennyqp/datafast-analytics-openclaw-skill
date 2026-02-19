@@ -7,22 +7,6 @@ Query DataFast website analytics and visitor data from OpenClaw. This skill wrap
 - OpenClaw installed
 - A DataFast API key
 
-## Install
-
-### Workspace install (recommended)
-
-If you are in the skill repo:
-
-```bash
-clawhub install .
-```
-
-Or copy the folder into your OpenClaw workspace:
-
-```bash
-cp -R /Users/benny/Desktop/datafast/skills/datafast-analytics <YOUR_WORKSPACE>/skills/
-```
-
 OpenClaw loads skills from `<workspace>/skills` with highest precedence.
 
 ## Configure API Key
