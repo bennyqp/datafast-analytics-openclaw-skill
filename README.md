@@ -18,8 +18,6 @@ Set the API key in `~/.openclaw/openclaw.json` so it is injected per run:
   "skills": {
     "entries": {
       "datafast-analytics": {
-        "enabled": true,
-        "apiKey": "YOUR_DATAFAST_API_KEY",
         "env": {
           "DATAFAST_API_KEY": "YOUR_DATAFAST_API_KEY"
         }
