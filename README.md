@@ -1,6 +1,6 @@
 # DataFast Analytics OpenClaw Skill
 
-Query DataFast website analytics and visitor data from OpenClaw. This skill wraps the DataFast API and summarizes results for common analyt>
+Query DataFast website analytics and visitor data from OpenClaw. This skill wraps the DataFast API and summarizes results for common analytics questions (overview, time series, realtime, breakdowns, visitors, goals, and payments).
 
 ## Requirements
 
@@ -67,7 +67,7 @@ Common endpoints:
 
 ## Filters and Time Ranges
 
-Use `startAt` and `endAt` together for time windows. For segmentation, use `filter_*` parameters supported by the DataFast API (example: `f>
+Use `startAt` and `endAt` together for time windows. For segmentation, use `filter_*` parameters supported by the DataFast API (example: `filter_referrer=is:x.com`). See the full API docs in `references/datafast-api-docs.md`.
 
 ## Security Notes
 
