@@ -1,7 +1,7 @@
 ---
 name: datafast-analytics
-description: Query DataFast website analytics and visitor data via the DataFast API for metrics, time series, realtime stats, breakdowns, visitor details, and goal/payment management.
-metadata: {"openclaw":{"requires":{"env":["DATAFAST_API_KEY"]},"primaryEnv":"DATAFAST_API_KEY","homepage":"https://datafa.st"}}
+description: Query DataFast website analytics and visitor data via the DataFast API for metrics, time series, realtime stats, breakdowns, v>
+metadata: {"openclaw":{"homepage":"https://datafa.st"}}
 ---
 
 # DataFast Analytics Skill
@@ -12,18 +12,32 @@ Use this skill to call the DataFast API and summarize results for the user.
 
 1. Confirm the request type (overview, timeseries, realtime, breakdown, visitor, goals/payments create/delete).
 2. Gather required inputs:
-   - `DATAFAST_API_KEY` (prefer env var; do not ask the user to paste the key in chat).
    - Date range: `startAt` and `endAt` together or neither (overview/timeseries support ranges).
    - `timezone`, `fields`, `interval`, `limit`, `offset`, and any `filter_*` parameters.
 3. Build the HTTP request with `Authorization: Bearer $DATAFAST_API_KEY` and `Content-Type: application/json`.
 4. Execute with `curl` and parse JSON.
 5. Summarize results in a table plus a short narrative (totals + key takeaways). Include pagination info if relevant.
 
+## Setup
+
+1. Get your API key from DataFast (starts with `df_`).
+2. Store it:
+```bash
+mkdir -p ~/.config/datafast
+echo "df_your_key_here" > ~/.config/datafast/api_key
+```
+
 ## Authentication
 
-- Use `Authorization: Bearer $DATAFAST_API_KEY`.
-- Prefer environment variable access (`$DATAFAST_API_KEY`) in commands.
-- If the user has not set it, ask them to set it in OpenClaw config under `skills.entries.datafast-analytics.env` (or via `apiKey`) and confirm when done.
+All requests need:
+```bash
+DATAFAST_API_KEY=$(cat ~/.config/datafast/api_key)
+curl ... \
+  -H "Authorization: Bearer $DATAFAST_API_KEY" \
+  -H "Content-Type: application/json"
+```
+
+If the user hasn't set up the API key, ask them to follow the setup steps above.
 
 ## Base URL
 
@@ -83,6 +97,7 @@ For `DELETE /goals` or `DELETE /payments`:
 
 ### GET
 ```bash
+DATAFAST_API_KEY=$(cat ~/.config/datafast/api_key)
 curl -sS "https://datafa.st/api/v1/analytics/overview?startAt=2024-01-01&endAt=2024-01-31&timezone=UTC" \
   -H "Authorization: Bearer $DATAFAST_API_KEY" \
   -H "Content-Type: application/json"
@@ -90,6 +105,7 @@ curl -sS "https://datafa.st/api/v1/analytics/overview?startAt=2024-01-01&endAt=2
 
 ### POST
 ```bash
+DATAFAST_API_KEY=$(cat ~/.config/datafast/api_key)
 curl -sS "https://datafa.st/api/v1/goals" \
   -H "Authorization: Bearer $DATAFAST_API_KEY" \
   -H "Content-Type: application/json" \
@@ -98,6 +114,7 @@ curl -sS "https://datafa.st/api/v1/goals" \
 
 ### DELETE
 ```bash
+DATAFAST_API_KEY=$(cat ~/.config/datafast/api_key)
 curl -sS -X DELETE "https://datafa.st/api/v1/goals?name=signup&startAt=2023-01-01T00:00:00Z&endAt=2023-01-31T23:59:59Z" \
   -H "Authorization: Bearer $DATAFAST_API_KEY"
 ```
