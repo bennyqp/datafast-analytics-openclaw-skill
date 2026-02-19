@@ -1,33 +1,32 @@
 # DataFast Analytics OpenClaw Skill
 
-Query DataFast website analytics and visitor data from OpenClaw. This skill wraps the DataFast API and summarizes results for common analytics questions (overview, time series, realtime, breakdowns, visitors, goals, and payments).
+Query DataFast website analytics and visitor data from OpenClaw. This skill wraps the DataFast API and summarizes results for common analyt>
 
 ## Requirements
 
 - OpenClaw installed
-- A DataFast API key
+- A DataFast API key (get yours from [datafa.st](https://datafa.st))
+
+## Installation
+
+Clone or copy the skill into your OpenClaw workspace:
+
+```bash
+git clone https://github.com/bennyqp/datafast-analytics-openclaw-skill.git ~/.openclaw/workspace/skills/datafast-analytics
+```
 
 OpenClaw loads skills from `<workspace>/skills` with highest precedence.
 
 ## Configure API Key
 
-Set the API key in `~/.openclaw/openclaw.json` so it is injected per run:
+Store your API key in a config file:
 
-```json
-{
-  "skills": {
-    "entries": {
-      "datafast-analytics": {
-        "env": {
-          "DATAFAST_API_KEY": "YOUR_DATAFAST_API_KEY"
-        }
-      }
-    }
-  }
-}
+```bash
+mkdir -p ~/.config/datafast
+echo "df_your_api_key_here" > ~/.config/datafast/api_key
 ```
 
-The skill requires `DATAFAST_API_KEY` to be present. OpenClaw will inject it into the process environment for each agent run.
+The skill reads the key from `~/.config/datafast/api_key` on each request.
 
 ## Usage
 
@@ -68,18 +67,9 @@ Common endpoints:
 
 ## Filters and Time Ranges
 
-Use `startAt` and `endAt` together for time windows. For segmentation, use `filter_*` parameters supported by the DataFast API (example: `filter_referrer=is:x.com`). See the full API docs in `references/datafast-api-docs.md`.
+Use `startAt` and `endAt` together for time windows. For segmentation, use `filter_*` parameters supported by the DataFast API (example: `f>
 
 ## Security Notes
 
 - Treat the API key as a secret. Do not paste it into chat prompts.
-- OpenClaw injects skill env vars per run and restores the environment after the run ends.
-
-## Development
-
-Skill files:
-
-- `/Users/benny/Desktop/datafast/skills/datafast-analytics/SKILL.md`
-- `/Users/benny/Desktop/datafast/skills/datafast-analytics/references/datafast-api-docs.md`
-
-If you want to publish to ClawHub, use `clawhub sync --all` from the repo root.
+- The key is stored locally in `~/.config/datafast/api_key` and never leaves your machine.
