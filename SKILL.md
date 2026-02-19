@@ -1,6 +1,6 @@
 ---
 name: datafast-analytics
-description: Query DataFast website analytics and visitor data via the DataFast API for metrics, time series, realtime stats, breakdowns, v>
+description: Query DataFast website analytics and visitor data via the DataFast API for metrics, time series, realtime stats, breakdowns, visitor details, and goal/payment management.
 metadata: {"openclaw":{"homepage":"https://datafa.st"}}
 ---
 
@@ -57,6 +57,7 @@ Use the full API reference at `{baseDir}/references/datafast-api-docs.md` for en
 - `GET /analytics/timeseries`
 - Typical params: `fields`, `interval` (hour/day/week/month), `startAt`, `endAt`, `timezone`, `limit`, `offset`.
 - Accepts `filter_*` query params for segmentation.
+- **Note:** `fields` is required (e.g., `fields=visitors,sessions`).
 
 ### Realtime
 - `GET /analytics/realtime`
@@ -90,8 +91,18 @@ Use the full API reference at `{baseDir}/references/datafast-api-docs.md` for en
 
 For `DELETE /goals` or `DELETE /payments`:
 - Always confirm exact filters and time range in plain English before executing.
-- If user asks for “all time” deletion, ask for explicit confirmation.
+- If user asks for "all time" deletion, ask for explicit confirmation.
 - Echo the final URL that will be called (without the API key).
+
+## Filter Syntax
+
+Use `filter_*` params for segmentation (e.g., `filter_referrer=is:X`).
+
+**Important:** Filter values must match the exact names from breakdown endpoints. For example, X/Twitter is stored as "X" (not "x.com" or "twitter.com"). When in doubt, query the breakdown first:
+```bash
+curl ... "/analytics/referrers?limit=20"
+```
+Then use the exact `referrer` value in your filter.
 
 ## Example Command Patterns
 
