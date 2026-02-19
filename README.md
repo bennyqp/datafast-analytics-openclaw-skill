@@ -33,7 +33,7 @@ The skill reads the key from `~/.config/datafast/api_key` on each request.
 Ask OpenClaw analytics questions such as:
 
 - "Show visitors and revenue for the last 30 days."
-- "Visitors from x.com in the last 24 hours."
+- "Visitors from X in the last 24 hours."
 - "Realtime active visitors right now."
 - "Top pages by visitors."
 - "Create a custom goal for a visitor."
